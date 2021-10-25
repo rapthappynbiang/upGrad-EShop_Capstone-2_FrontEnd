@@ -3,6 +3,7 @@ import { Card, CardHeader, CardContent, Typography, Input, InputLabel, FormHelpe
 import './SignupForm.css';
 import loadData from '../../middleware/loadData';
 import {Link} from 'react-router-dom';
+import Header from '../header/Header';
 
 
 function SignUpForm(props){
@@ -151,8 +152,10 @@ function SignUpForm(props){
 
 
     return(
-        <Card className="signup-card">
-           <CardHeader color="primary" title="Sign Up" />
+       <div>
+           <Header baseURL={props.baseURL}/>
+            <Card className="signup-card">
+            <CardHeader color="primary" title="Sign Up" />
 
            <CardContent>
                <FormControl>
@@ -219,6 +222,7 @@ function SignUpForm(props){
                <Link to='/login' className="link">Login</Link>
            </CardContent>
         </Card>
+       </div>
 
     )
 }

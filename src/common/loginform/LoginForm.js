@@ -5,7 +5,7 @@ import {btoa} from 'b2a';
 import axios from 'axios';
 import {useLocation, useHistory, Link} from 'react-router-dom';
 import './LoginForm.css'
-
+import Header from '../header/Header'
 
 ///Login form component
 function LoginForm(props){
@@ -79,8 +79,9 @@ function LoginForm(props){
 
             debugger;
               window.sessionStorage.setItem('x-auth-token', response.headers['x-auth-token']);
+              window.sessionStorage.setItem('isLoggedIn', true);
               window.sessionStorage.setItem('role', response.data.role);
-              history.push('/');
+              history.push('/products');
           }else{
               setResMessage(response.data.message);
           }
@@ -88,21 +89,12 @@ function LoginForm(props){
        })
 
    }
-
-   //style for thelogin page card container
-   const loginCardStyle = {
-         display: 'flex',
-         flexDirection: 'column',
-         width: '30%',
-         height: '50%',
-         margin: '15% auto',
-         justifyContent: 'center',
-         alignItems: 'center'
-   }
       
     ///return
     return(
-        <Card className="loginCardStyle">
+        <div>
+            <Header baseURL={props.baseURL} />
+            <Card className="loginCardStyle">
            <CardHeader title="Login" />
 
            <CardContent>
@@ -139,6 +131,7 @@ function LoginForm(props){
                <Link to='/signup' className="link">Sign Up</Link>
            </CardContent>
         </Card>
+        </div>
 
     )
 }
