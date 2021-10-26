@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../../common/header/Header';
 import {useEffect} from 'react';
-import {useHistory} from 'react-router-dom'
+import {useHistory, useParams, useLocation, Link} from 'react-router-dom'
 import { Button, Card, CardContent, Typography } from '@material-ui/core';
 //function for loading of resources
 import loadData from '../../middleware/loadData';
@@ -10,6 +10,8 @@ import './Products.css';
 //creating a Home Component
 function Products(props){
      const history = useHistory();
+     const location = useLocation();
+     history.baseURL = props.baseURL;
 
      const [products, setProducts] = useState([]);
 
@@ -24,17 +26,33 @@ function Products(props){
      }
 
     useEffect(()=>{
-        
-    //load all products from server
-    loadData(props.baseURL+'/products', 'get', null, null, null)
-    .then(response=>{
-        console.log(response);
-        setProducts(response.data);
-    })
-    .catch(err=>{
-        console.log(err);
-    })
+    
+        console.log(history);
+        var url = props.baseURL+"/products"+history.location.search;
+        //load all products from server
+        loadData(url, 'get', null, null, null)
+        .then(response=>{
+            console.log(response);
+            setProducts(response.data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
     },[])
+
+    useEffect(()=>{
+        var url = props.baseURL+"/products"+history.location.search;
+        //load all products from server
+        loadData(url, 'get', null, null, null)
+        .then(response=>{
+            console.log(response);
+            setProducts(response.data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+
+    },[history.location.search])
 
     const cardItem = {
         margin: '2% 1.5%',
@@ -46,7 +64,7 @@ function Products(props){
 
     return(
         <div className="main-container">
-           <Header baseURL={props.baseURL} setProducts={(products)=>{setProducts(products)}}/>
+           <Header baseURL={history.baseURL} setProducts={(products)=>{setProducts(products)}}/>
            <div className="content">
               {products.map(product=>(
                   <Card id={`card-no-${product.productId}`} style={cardItem}>
@@ -71,7 +89,7 @@ function Products(props){
                           <Typography><em>Rs: {product.price}</em></Typography>
                      </CardContent>
                      <CardContent>
-                         <Button variant="contained" color="primary">
+                         <Button component={Link} to={`/products/${product.productId}`}variant="contained" color="primary">
                              Buy
                          </Button>
                      </CardContent>

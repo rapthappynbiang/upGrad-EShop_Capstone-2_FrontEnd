@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom
 import Products from './products/Products'
 import LoginForm from '../common/loginform/LoginForm';
 import SignUpForm  from '../common/signupform/SignupForm';
+import ProductDetail from './productdetail/ProductDetail';
 
 class Controller extends Component{
     baseURL = "http://localhost:8000/api";
@@ -17,9 +18,10 @@ class Controller extends Component{
                            <Redirect to='/products' />
                        ) 
                         }} />
-                   <Route path='/products' render={()=>{ return <Products baseURL={this.baseURL}/>}} />
-                   <Route path='/login' render={()=> {return <LoginForm baseURL={this.baseURL} />}} />
-                   <Route path='/signup' render={()=> {return <SignUpForm baseURL={this.baseURL} />}} />
+                   <Route path='/login' exact render={()=> {return <LoginForm baseURL={this.baseURL} />}} />
+                   <Route path='/signup' exact render={()=> {return <SignUpForm baseURL={this.baseURL} />}} />
+                   <Route path='/products/:id' exact render={()=>{return <ProductDetail baseURL={this.baseURL} /> }}/>
+                   <Route path='/products'  render={()=>{ return <Products baseURL={this.baseURL}/>}} />
                 </Switch>
             </Router>
         )
