@@ -50,7 +50,7 @@
     border-radius: 5px;
 }
 
-.card{
+.order-card{
     width: 90%;
     margin: auto;
     margin-top: 30px;
@@ -72,7 +72,7 @@
 .order-image{
     width: 100%;
 }
-.order-card{
+.order-detail-card{
     width: 60%;
 }
 .success-container{

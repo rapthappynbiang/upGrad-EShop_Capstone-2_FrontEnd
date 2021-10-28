@@ -154,10 +154,9 @@ function Order(props){
 
         //odrder data to be sent to db
         var data = {
-            userId: selectedAddress.user._id,
             addressId: selectedAddress._id,
-            productId: product.productId,
-            amount: product.price*quantity,
+            productId: product._id,
+            quantity: quantity,
         }
 
         //send the data to server
@@ -294,7 +293,7 @@ function Order(props){
 
                         return (
                             <div className="step-content" style={{display: 'block'}}>
-                                <Card className="card">
+                                <Card className="order-card">
                                   {addresses.length !== 0 ? (()=>{
                                       return (
                                        <CardContent>
@@ -315,7 +314,7 @@ function Order(props){
                                       })() : (()=>{return( <Typography>Please Add Shipping Address!</Typography> )})()             
                                   }
                                </Card>
-                               <Card className='card'>
+                               <Card className='order-card'>
                                    <CardContent className="form-container">
                                        <Typography>Add new shipping address</Typography>
        
@@ -410,7 +409,7 @@ function Order(props){
                             <div className="order-image-content">
                                 <img src={product.imageURL} alt={product.name} className="order-image"/>
                             </div>
-                            <Card className="card order-card">
+                            <Card className="order-card order-detail-card">
                                 <CardHeader style={{fontSize: 'bold', display: 'flex', justifyContent: "center"}} title="Order summary" />
                                 <hr style={{fontSize: '2px', width: '100%'}}/>
                                 <CardContent>
